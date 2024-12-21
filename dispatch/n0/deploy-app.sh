@@ -20,7 +20,7 @@ LAUNCH_TEMPLATE_ID=$(aws ec2 create-launch-template \
   --launch-template-name "SimpleAppTemplate" \
   --version-description "Initial version" \
   --launch-template-data "{
-        \"ImageId\": \"ami-090fa75af13c156b4\",
+        \"ImageId\": \"ami-08be03eb8827fb402\",
         \"InstanceType\": \"t2.micro\",
         \"SecurityGroupIds\": [\"$SG_ID\"],
         \"UserData\": \"$USER_DATA\"
