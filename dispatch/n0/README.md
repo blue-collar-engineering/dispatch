@@ -137,16 +137,37 @@ Monitor your deployment using AWS CloudWatch:
 
 2. Load Balancer Metrics:
 
-   ```sh
-   aws cloudwatch get-metric-statistics \
-       --namespace AWS/ApplicationELB \
-       --metric-name RequestCount \
-       --dimensions Name=LoadBalancer,Value="$ALB_ARN" \
-       --start-time "$(date -u -v-1H '+%Y-%m-%dT%H:%M:%S')" \
-       --end-time "$(date -u '+%Y-%m-%dT%H:%M:%S')" \
-       --period 300 \
-       --statistics Sum
-   ```
+Get short name from ALB ARN (e.g., app/SimpleAppALB/1234567890)
+
+```sh
+ALB_NAME=$(echo "$ALB_ARN" | cut -d'/' -f2,3,4)
+```
+
+For Linux (GNU date)
+
+```sh
+aws cloudwatch get-metric-statistics \
+    --namespace AWS/ApplicationELB \
+    --metric-name RequestCount \
+    --dimensions Name=LoadBalancer,Value="$ALB_NAME" \
+    --start-time "$(date -u -d '1 hour ago' '+%Y-%m-%dT%H:%M:%S')" \
+    --end-time "$(date -u '+%Y-%m-%dT%H:%M:%S')" \
+    --period 300 \
+    --statistics Sum
+```
+
+For MacOS (BSD date)
+
+```sh
+aws cloudwatch get-metric-statistics \
+    --namespace AWS/ApplicationELB \
+    --metric-name RequestCount \
+    --dimensions Name=LoadBalancer,Value="$ALB_NAME" \
+    --start-time "$(date -u -v-1H '+%Y-%m-%dT%H:%M:%S')" \
+    --end-time "$(date -u '+%Y-%m-%dT%H:%M:%S')" \
+    --period 300 \
+    --statistics Sum
+```
 
 ## Troubleshooting
 

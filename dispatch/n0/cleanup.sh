@@ -83,6 +83,7 @@ aws elbv2 delete-target-group \
   --target-group-arn "$TG_ARN" || cleanup_error "Failed to delete Target Group"
 
 # Delete Security Group
+sleep 15 # wait for instances,etc to all disassociate
 echo "Deleting Security Group..."
 aws ec2 delete-security-group \
   --group-id "$SG_ID" || cleanup_error "Failed to delete Security Group"
