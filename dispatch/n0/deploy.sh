@@ -33,13 +33,19 @@ echo "Configuring security..."
 echo "Deploying application..."
 . ./deploy-app.sh
 
-# Save environment variables - using simpler syntax
+# Save environment variables
+# Convert space-separated subnet IDs to comma-separated for .env storage
+SUBNET_IDS_CSV=$(echo "$SUBNET_IDS" | tr ' ' ',')
+
 echo "VPC_ID=$VPC_ID" >.env
-echo "SUBNET_ID=$SUBNET_ID" >>.env
+echo "SUBNET_IDS=$SUBNET_IDS_CSV" >>.env
 echo "SECURITY_GROUP_ID=$SG_ID" >>.env
 echo "LAUNCH_TEMPLATE_ID=$LAUNCH_TEMPLATE_ID" >>.env
 echo "ALB_ARN=$ALB_ARN" >>.env
 echo "TG_ARN=$TG_ARN" >>.env
+echo "SG_ID=$SG_ID" >>.env
+echo "ROUTE_TABLE_ID=$ROUTE_TABLE_ID" >>.env
+echo "IGW_ID=$IGW_ID" >>.env
 
 echo "Deployment complete!"
 echo "Load balancer DNS name:"
