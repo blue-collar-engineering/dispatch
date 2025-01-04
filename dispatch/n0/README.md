@@ -8,6 +8,7 @@ This repository contains POSIX-compliant shell scripts for deploying application
 - ✅ Automatic VPC and networking setup
 - ✅ Load balancing with Auto Scaling Groups
 - ✅ Simple deployment and cleanup
+- ✅ IAM Policy
 - ✅ Comprehensive error handling
 - ✅ No Kubernetes required
 
@@ -35,6 +36,8 @@ Before you begin, ensure you have:
    - Elastic Load Balancing
    - CloudWatch (for monitoring)
 
+   You can use `iam-policy.json` included here.
+
 ## Quick Start
 
 1. Clone this repository:
@@ -56,6 +59,9 @@ Before you begin, ensure you have:
    ./deploy.sh your-app-name your-docker-image
    ```
 
+   > I have provided a sample application under `breakout/`. It is already available at `x7b7/breakout:latest`
+   > Feel free to use your own or build the sample one from scratch and push it to your registry of choice.
+
 This will create:
 
 - A VPC with proper networking
@@ -70,7 +76,7 @@ This will create:
 Main deployment script that orchestrates the entire setup:
 
 ```sh
-./deploy.sh app-name docker-image:tag
+./deploy.sh breakout x7b7/breakout:latest
 ```
 
 ### setup-network.sh
